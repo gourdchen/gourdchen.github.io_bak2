@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Viterbi 算法 Python实现 [NLP学习一], Pin The Brain">
-    <meta name="description" content="原链接 ： https://www.cnblogs.com/eating-gourd/p/9036977.html
-最近思考了一下未来，结合老师的意见，还是决定挑一个方向开始研究了，虽然个人更喜欢鼓捣。深思熟虑后，结合自己的兴趣点，选择了N">
+    <meta name="keywords" content="flask_sqlalchemy 查询结果转dict 终极解决方案, Pin The Brain">
+    <meta name="description" content="之前为了学习Python，试着拿Flask作框架搞小网站，感觉还不错，基本就抛弃了PHP。前段时间做了一个微信小程序，想着yii框架拿来写几十个小接口是不是浪费了，就继续用flask写api了，哪想到填坑无数啊。
+　　Python的ORM框">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Viterbi 算法 Python实现 [NLP学习一] | Pin The Brain</title>
+    <title>flask_sqlalchemy 查询结果转dict 终极解决方案 | Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Viterbi 算法 Python实现 [NLP学习一]</h1>
+                    <h1 class="description center-align post-title">flask_sqlalchemy 查询结果转dict 终极解决方案</h1>
                 </div>
             </div>
         </div>
@@ -277,13 +277,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/NLP/">
-                                <span class="chip bg-color">NLP</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -295,7 +291,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2018-05-14
+                    2018-11-21
                 </div>
                 
 
@@ -316,17 +312,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>原链接 ： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/eating-gourd/p/9036977.html">https://www.cnblogs.com/eating-gourd/p/9036977.html</a></p>
-<p>最近思考了一下未来，结合老师的意见，还是决定挑一个方向开始研究了，虽然个人更喜欢鼓捣。深思熟虑后，结合自己的兴趣点，选择了NLP方向，感觉比纯粹的人工智能、大数据之类的方向有趣多了，个人还是不适合纯粹理论研究 :)。发现图书馆一本语言处理方面的书也没有后，在京东找了一本书–《NLP汉语自然语言处理原理与实践》，到今天看了大约150页，发现还是很模糊，决定找点代码来看。</p>
-<p>从最简单的分词开始，发现分词的库已经很多了，选择了比较轻巧的jieba来研究。看了一下GitHub的基本介绍，突然感觉：我次奥，这也不过如此嘛，来来来写一个。jieba对于词典外的词用HMM模型进行解决，用Viterbi算法实现。网上对于HMM的解释很多，我个人也不太能够通过数学公司解释，其实模型比较简单，先了解了马尔可夫模型后就能比较容易地理解隐马尔可夫模型。</p>
-<p>这里记录一下对于HMM模型中，解决求隐藏状态链问题的Viterbi算法的学习。</p>
-<p>在知乎问题：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20136144">https://www.zhihu.com/question/20136144</a> 中，我看了高票答案地回答，基本理解了思想，但是这个回答稍微有一点不全面，并没有强调回溯的思想，这里让我对算法产生了一点误解，后面有提到。</p>
-<p>大约花了半天时间阅读网上各种资料后，我选了一个Python代码决定仿照写一次(<a target="_blank" rel="noopener" href="https://blog.csdn.net/youfefi/article/details/74276546">https://blog.csdn.net/youfefi/article/details/74276546</a>) 代码用了numpy数组，由于我对numpy的函数不是太熟悉，决定先用list写一遍。令我惊讶的是，由于我脑袋太笨加上当时对维特比算法不是很清晰，我没有看懂作者的代码（略显尴尬），没办法，决定先按照自己的思路写出来。写的过程中发现算法有点出奇简单，居然简单3层循环就出来了，大概40分钟写完了。不出意外，写完运行发现和网上代码结果不一致。</p>
-<p>打断点开始调试，发现自己求出的概率矩阵是正确的，但最后路径不正确，意识到可能自己的理解有问题。再次上网查询资料。参考 <a target="_blank" rel="noopener" href="https://www.2cto.com/kf/201609/544539.html">https://www.2cto.com/kf/201609/544539.html</a> 的文章，发现自己的理解是有问题的：</p>
-<p>我的理解是依次迭代每个时刻，找到概率最大的状态即为该时刻状态，这样理解错误在于求的隐藏状态是一个链，根据马尔可夫假设，下一刻时刻的状态是依赖前一个状态的，我的理解就将状态之间割裂了，无法行成链。</p>
-<p>正确的算法是每次迭代过程中，记录每种状态概率最大时其前驱状态，这样到最后一个时刻，选择概率最大的状态，再进行回溯。</p>
-<p>代码如下：直接使用List、迭代过程中没有对概率进行判断，还有优化空间。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"># state 存放隐藏序列，sunny 0 rainy 1</span><br><span class="line"># obser 存放观测序列  0 1 2 对应 walk shop clean</span><br><span class="line"># start_p 是初始概率，0元素对应sunny的初始概率 1元素对应rainy的概率</span><br><span class="line"># transition_p 转移概率矩阵 2*2 行为初始状态  列为新状态</span><br><span class="line"># emission_p 发射概率矩阵 2*3 行为隐藏状态  列为可观测状态</span><br><span class="line"></span><br><span class="line"># 迭代过程，每次只需要记录第t个时间点 每个节点的最大概率即可，后续计算时直接使用前序节点的最大概率即可</span><br><span class="line">def compute(obser, state, start_p, transition_p, emission_p):</span><br><span class="line">    # max_p 记录每个时间点每个状态的最大概率，i行j列，（i,j）记录第i个时间点 j隐藏状态的最大概率</span><br><span class="line">    max_p = [[0 for col in range(len(state))] for row in range(len(obser))]</span><br><span class="line">    # path 记录max_p 对应概率处的路径 i 行 j列 （i,j）记录第i个时间点 j隐藏状态最大概率的情况下 其前驱状态</span><br><span class="line">    path = [[0 for col in range(len(state))] for row in range(len(obser))]</span><br><span class="line">    # 初始状态(1状态)</span><br><span class="line">    for i in range(len(state)):</span><br><span class="line">        # max_p[0][i]表示初始状态第i个隐藏状态的最大概率</span><br><span class="line">        # 概率 = start_p[i] * emission_p [state[i]][obser[0]]</span><br><span class="line">        max_p[0][i] = start_p[i] * emission_p[state[i]][obser[0]]</span><br><span class="line">        path[0][i] = i</span><br><span class="line">    # 后续循环状态(2-t状态)</span><br><span class="line">    # 此时max_p 中已记录第一个状态的两个隐藏状态概率</span><br><span class="line">    for i in range(1, len(obser)):  # 循环t-1次，初始已计算</span><br><span class="line">        max_item = [0 for i in range(len(state))]</span><br><span class="line">        for j in range(len(state)):  # 循环隐藏状态数，计算当前状态每个隐藏状态的概率</span><br><span class="line">            item = [0 for i in state]</span><br><span class="line">            for k in range(len(state)):  # 再次循环隐藏状态数，计算选定隐藏状态的前驱状态为各种状态的概率</span><br><span class="line">                p = max_p[i - 1][k] * emission_p[state[j]][obser[i]] * transition_p[state[k]][state[j]]</span><br><span class="line">                # k即代表前驱状态 k或state[k]均为前驱状态</span><br><span class="line">                item[state[k]] = p</span><br><span class="line">            # 设置概率记录为最大情况</span><br><span class="line">            max_item[state[j]] = max(item)</span><br><span class="line">            # 记录最大情况路径(下面语句的作用：当前时刻下第j个状态概率最大时，记录其前驱节点)</span><br><span class="line">            # item.index(max(item))寻找item的最大值索引，因item记录各种前驱情况的概率</span><br><span class="line">            path[i][state[j]] = item.index(max(item))</span><br><span class="line">        # 将单个状态的结果加入总列表max_p</span><br><span class="line">        max_p[i] = max_item</span><br><span class="line">    #newpath记录最后路径</span><br><span class="line">    newpath = []</span><br><span class="line">    #判断最后一个时刻哪个状态的概率最大</span><br><span class="line">    p=max_p[len(obser)-1].index(max(max_p[len(obser)-1]))</span><br><span class="line">    newpath.append(p)</span><br><span class="line">    #从最后一个状态开始倒着寻找前驱节点</span><br><span class="line">    for i in range(len(obser) - 1, 0, -1):</span><br><span class="line">        newpath.append(path[i][p])</span><br><span class="line">        p = path[i][p]</span><br><span class="line">    newpath.reverse()</span><br><span class="line">    return newpath</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #   隐状态</span><br><span class="line">    hidden_state = [&#x27;rainy&#x27;, &#x27;sunny&#x27;]</span><br><span class="line">    #   观测序列</span><br><span class="line">    obsevition = [&#x27;walk&#x27;, &#x27;shop&#x27;, &#x27;clean&#x27;]</span><br><span class="line">    state_s = [0, 1]</span><br><span class="line">    obser = [0, 1, 2]</span><br><span class="line">    #   初始状态，测试集中，0.6概率观测序列以sunny开始</span><br><span class="line">    start_probability = [0.6, 0.4]</span><br><span class="line">    #   转移概率，0.7：sunny下一天sunny的概率</span><br><span class="line">    transititon_probability = [[0.7, 0.3], [0.4, 0.6]]</span><br><span class="line">    #   发射概率，0.4：sunny在0.4概率下为shop</span><br><span class="line">    emission_probability = [[0.1, 0.4, 0.5], [0.6, 0.3, 0.1]]</span><br><span class="line">    result = compute(obser, state_s, start_probability, transititon_probability, emission_probability)</span><br><span class="line">    for k in range(len(result)):</span><br><span class="line">        print(hidden_state[int(result[k])])</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+                <p>之前为了学习Python，试着拿Flask作框架搞小网站，感觉还不错，基本就抛弃了PHP。前段时间做了一个微信小程序，想着yii框架拿来写几十个小接口是不是浪费了，就继续用flask写api了，哪想到填坑无数啊。</p>
+<p>　　Python的ORM框架就属Sqlalchemy牛逼，网上资料也多，想着和yii里面应该差不多，就拿来用了。第二天万万没想到，php里面简单的一句asArray就能解决的问题，flask_sqlalchemy居然没有解决方案，查询的结果对象无法直接JSON序列化。这期间从南到北地找，大部分解决方案都是做一个JSON.dumps的Encoder方法，来转化restult对象，无意中看见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wancy86/p/6421792.html">https://www.cnblogs.com/wancy86/p/6421792.html</a> 这个帖子，说queryresult对象加入了json属性，欣喜万分，搞了一晚上也没找到这个方法。</p>
+<p>网上的方法主要问题在于只能处理result对象或model对象之一，当查询某个表全部字段时，如<br><code>db.session.query(User).filter().all()</code></p>
+<p>其返回User这个类的对象列表，而查询某些字段或者多表连接时，如：<br><code>db.session.query(User.UserID,User.UserName).filter().all()</code></p>
+<p>其返回result对象的列表，这两种情况下，对象的属性不同，导致很多情况下只能适应一种返回。今天趁闲着没事，把两种情况的查询结果转dict作了一下整理，封装为一个queryToDict函数,并同时支持all()返回的列表和first()返回的单个对象结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">from datetime import datetime as cdatetime #有时候会返回datatime类型</span><br><span class="line">from datetime import date,time</span><br><span class="line">from flask_sqlalchemy import Model</span><br><span class="line">from sqlalchemy.orm.query import Query</span><br><span class="line">from sqlalchemy import DateTime,Numeric,Date,Time #有时又是DateTime</span><br><span class="line"> </span><br><span class="line">def queryToDict(models):</span><br><span class="line">    if(isinstance(models,list)):</span><br><span class="line">        if(isinstance(models[0],Model)):</span><br><span class="line">            lst = []</span><br><span class="line">            for model in models:</span><br><span class="line">                gen = model_to_dict(model)</span><br><span class="line">                dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">                lst.append(dit)</span><br><span class="line">            return lst</span><br><span class="line">        else:</span><br><span class="line">            res = result_to_dict(models)</span><br><span class="line">            return res</span><br><span class="line">    else:</span><br><span class="line">        if (isinstance(models, Model)):</span><br><span class="line">            gen = model_to_dict(models)</span><br><span class="line">            dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">            return dit</span><br><span class="line">        else:</span><br><span class="line">            res = dict(zip(models.keys(), models))</span><br><span class="line">            find_datetime(res)</span><br><span class="line">            return res</span><br><span class="line">#当结果为result对象列表时，result有key()方法</span><br><span class="line">def result_to_dict(results):</span><br><span class="line">    res = [dict(zip(r.keys(), r)) for r in results]</span><br><span class="line">    #这里r为一个字典，对象传递直接改变字典属性</span><br><span class="line">    for r in res:</span><br><span class="line">        find_datetime(r)</span><br><span class="line">    return res</span><br><span class="line">def model_to_dict(model):      #这段来自于参考资源</span><br><span class="line">    for col in model.__table__.columns:</span><br><span class="line">        if isinstance(col.type, DateTime):</span><br><span class="line">            value = convert_datetime(getattr(model, col.name))</span><br><span class="line">        elif isinstance(col.type, Numeric):</span><br><span class="line">            value = float(getattr(model, col.name))</span><br><span class="line">        else:</span><br><span class="line">            value = getattr(model, col.name)</span><br><span class="line">        yield (col.name, value)</span><br><span class="line">def find_datetime(value):</span><br><span class="line">    for v in value:</span><br><span class="line">        if (isinstance(value[v], cdatetime)):</span><br><span class="line">            value[v] = convert_datetime(value[v])   #这里原理类似，修改的字典对象，不用返回即可修改</span><br><span class="line">def convert_datetime(value):</span><br><span class="line">    if value:</span><br><span class="line">        if(isinstance(value,(cdatetime,DateTime))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">        elif(isinstance(value,(date,Date))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d&quot;)</span><br><span class="line">        elif(isinstance(value,(Time,time))):</span><br><span class="line">            return value.strftime(&quot;%H:%M:%S&quot;)</span><br><span class="line">    else:</span><br><span class="line">        return &quot;&quot;</span><br><span class="line">1</span><br><span class="line">dit = dict((g[0],g[1]) for g in gen)相关代码也是之前查找资料获得，现在找不到出处了，作者可以联系我。</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -352,7 +343,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://gourdchen.github.io/2018/05/14/NLP-bak/">http://gourdchen.github.io/2018/05/14/NLP-bak/</a>
+                    <a href="http://gourdchen.github.io/2018/11/21/flask-sql/">http://gourdchen.github.io/2018/11/21/flask-sql/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -389,11 +380,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/NLP/">
-                                    <span class="chip bg-color">NLP</span>
-                                </a>
-                            
+                            <span class="chip bg-color">No tag</span>
                         </div>
                     
                 </div>
@@ -474,13 +461,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2018/11/21/flask-sql/">
+                <a href="/2022/09/10/fMRI-prep/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="flask_sqlalchemy 查询结果转dict 终极解决方案">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="fMRIprep preprocessing">
                         
-                        <span class="card-title">flask_sqlalchemy 查询结果转dict 终极解决方案</span>
+                        <span class="card-title">fMRIprep preprocessing</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -491,7 +478,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-11-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-10
                         </span>
                         <span class="publish-author">
                             
@@ -500,6 +487,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MRI/">
+                        <span class="chip bg-color">MRI</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -511,13 +506,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/04/19/mini-program/">
+                <a href="/2018/05/14/NLP-bak/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="小程序开发中有趣的事情">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Viterbi 算法 Python实现 [NLP学习一]">
                         
-                        <span class="card-title">小程序开发中有趣的事情</span>
+                        <span class="card-title">Viterbi 算法 Python实现 [NLP学习一]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -528,7 +523,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-14
                             </span>
                         <span class="publish-author">
                             
@@ -537,6 +532,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/NLP/">
+                        <span class="chip bg-color">NLP</span>
+                    </a>
+                    
                 </div>
                 
             </div>
