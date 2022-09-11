@@ -4,9 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="flask_sqlalchemy 查询结果转dict 终极解决方案, Pin The Brain">
-    <meta name="description" content="之前为了学习Python，试着拿Flask作框架搞小网站，感觉还不错，基本就抛弃了PHP。前段时间做了一个微信小程序，想着yii框架拿来写几十个小接口是不是浪费了，就继续用flask写api了，哪想到填坑无数啊。
-　　Python的ORM框">
+    <meta name="keywords" content="fMRIprep preprocessing, Pin The Brain">
+    <meta name="description" content="基本要求
+BIDS 格式
+至少具有T1和fMRI两个模态
+
+预处理参数&amp;quot;docker run -it --rm --name &amp;#123;subject_ids&amp;#125; -v &amp;#123;bids_data_path&amp;#125">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>flask_sqlalchemy 查询结果转dict 终极解决方案 | Pin The Brain</title>
+    <title>fMRIprep preprocessing | Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -250,12 +253,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">flask_sqlalchemy 查询结果转dict 终极解决方案</h1>
+                    <h1 class="description center-align post-title">fMRIprep preprocessing</h1>
                 </div>
             </div>
         </div>
@@ -279,14 +282,23 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/flask-python-web/">
-                                <span class="chip bg-color">flask python web</span>
+                            <a href="/tags/MRI/">
+                                <span class="chip bg-color">MRI</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Neuroimage/" class="post-category">
+                                Neuroimage
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -295,7 +307,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2018-11-21
+                    2022-09-10
                 </div>
                 
 
@@ -316,12 +328,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>之前为了学习Python，试着拿Flask作框架搞小网站，感觉还不错，基本就抛弃了PHP。前段时间做了一个微信小程序，想着yii框架拿来写几十个小接口是不是浪费了，就继续用flask写api了，哪想到填坑无数啊。</p>
-<p>　　Python的ORM框架就属Sqlalchemy牛逼，网上资料也多，想着和yii里面应该差不多，就拿来用了。第二天万万没想到，php里面简单的一句asArray就能解决的问题，flask_sqlalchemy居然没有解决方案，查询的结果对象无法直接JSON序列化。这期间从南到北地找，大部分解决方案都是做一个JSON.dumps的Encoder方法，来转化restult对象，无意中看见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wancy86/p/6421792.html">https://www.cnblogs.com/wancy86/p/6421792.html</a> 这个帖子，说queryresult对象加入了json属性，欣喜万分，搞了一晚上也没找到这个方法。</p>
-<p>网上的方法主要问题在于只能处理result对象或model对象之一，当查询某个表全部字段时，如<br><code>db.session.query(User).filter().all()</code></p>
-<p>其返回User这个类的对象列表，而查询某些字段或者多表连接时，如：<br><code>db.session.query(User.UserID,User.UserName).filter().all()</code></p>
-<p>其返回result对象的列表，这两种情况下，对象的属性不同，导致很多情况下只能适应一种返回。今天趁闲着没事，把两种情况的查询结果转dict作了一下整理，封装为一个queryToDict函数,并同时支持all()返回的列表和first()返回的单个对象结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">from datetime import datetime as cdatetime #有时候会返回datatime类型</span><br><span class="line">from datetime import date,time</span><br><span class="line">from flask_sqlalchemy import Model</span><br><span class="line">from sqlalchemy.orm.query import Query</span><br><span class="line">from sqlalchemy import DateTime,Numeric,Date,Time #有时又是DateTime</span><br><span class="line"> </span><br><span class="line">def queryToDict(models):</span><br><span class="line">    if(isinstance(models,list)):</span><br><span class="line">        if(isinstance(models[0],Model)):</span><br><span class="line">            lst = []</span><br><span class="line">            for model in models:</span><br><span class="line">                gen = model_to_dict(model)</span><br><span class="line">                dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">                lst.append(dit)</span><br><span class="line">            return lst</span><br><span class="line">        else:</span><br><span class="line">            res = result_to_dict(models)</span><br><span class="line">            return res</span><br><span class="line">    else:</span><br><span class="line">        if (isinstance(models, Model)):</span><br><span class="line">            gen = model_to_dict(models)</span><br><span class="line">            dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">            return dit</span><br><span class="line">        else:</span><br><span class="line">            res = dict(zip(models.keys(), models))</span><br><span class="line">            find_datetime(res)</span><br><span class="line">            return res</span><br><span class="line">#当结果为result对象列表时，result有key()方法</span><br><span class="line">def result_to_dict(results):</span><br><span class="line">    res = [dict(zip(r.keys(), r)) for r in results]</span><br><span class="line">    #这里r为一个字典，对象传递直接改变字典属性</span><br><span class="line">    for r in res:</span><br><span class="line">        find_datetime(r)</span><br><span class="line">    return res</span><br><span class="line">def model_to_dict(model):      #这段来自于参考资源</span><br><span class="line">    for col in model.__table__.columns:</span><br><span class="line">        if isinstance(col.type, DateTime):</span><br><span class="line">            value = convert_datetime(getattr(model, col.name))</span><br><span class="line">        elif isinstance(col.type, Numeric):</span><br><span class="line">            value = float(getattr(model, col.name))</span><br><span class="line">        else:</span><br><span class="line">            value = getattr(model, col.name)</span><br><span class="line">        yield (col.name, value)</span><br><span class="line">def find_datetime(value):</span><br><span class="line">    for v in value:</span><br><span class="line">        if (isinstance(value[v], cdatetime)):</span><br><span class="line">            value[v] = convert_datetime(value[v])   #这里原理类似，修改的字典对象，不用返回即可修改</span><br><span class="line">def convert_datetime(value):</span><br><span class="line">    if value:</span><br><span class="line">        if(isinstance(value,(cdatetime,DateTime))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">        elif(isinstance(value,(date,Date))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d&quot;)</span><br><span class="line">        elif(isinstance(value,(Time,time))):</span><br><span class="line">            return value.strftime(&quot;%H:%M:%S&quot;)</span><br><span class="line">    else:</span><br><span class="line">        return &quot;&quot;</span><br><span class="line">1</span><br><span class="line">dit = dict((g[0],g[1]) for g in gen)相关代码也是之前查找资料获得，现在找不到出处了，作者可以联系我。</span><br></pre></td></tr></table></figure>
+                <h1 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h1><ul>
+<li>BIDS 格式</li>
+<li>至少具有T1和fMRI两个模态</li>
+</ul>
+<h1 id="预处理参数"><a href="#预处理参数" class="headerlink" title="预处理参数"></a>预处理参数</h1><p><code>&quot;docker run -it --rm --name &#123;subject_ids&#125; -v &#123;bids_data_path&#125;:/data -v &#123;freesurfer_license&#125;:/opt/freesurfer/license.txt -v &#123;bids_output_path&#125;:/out -v &#123;fmri_work&#125;:/work &#123;contianer_id&#125; /data /out --skip_bids_validation   -w /work --n_cpus 24 --omp-nthreads  &#123;thread&#125;  --resource-monitor participant --participant-label &#123;subject_ids&#125; --output-spaces MNI152NLin6Asym:res-2 MNI152NLin2009cAsym fsaverage --cifti-output  --ignore fieldmaps&quot;</code></p>
+<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><p>每个fmriprep预处理尽量纳入少于10人，人数多后fmriprep构建索引极慢</p>
+<p>推荐参考 <a target="_blank" rel="noopener" href="https://github.com/hlpureboy/fMRIprep-To-Machine-Learning">https://github.com/hlpureboy/fMRIprep-To-Machine-Learning</a></p>
+
                 
             </div>
             <hr/>
@@ -347,7 +361,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://gourdchen.github.io/2018/11/21/flask-sql/">http://gourdchen.github.io/2018/11/21/flask-sql/</a>
+                    <a href="http://gourdchen.github.io/2022/09/10/Neuroimage_fmriprep_using/">http://gourdchen.github.io/2022/09/10/Neuroimage_fmriprep_using/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -385,8 +399,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/flask-python-web/">
-                                    <span class="chip bg-color">flask python web</span>
+                                <a href="/tags/MRI/">
+                                    <span class="chip bg-color">MRI</span>
                                 </a>
                             
                         </div>
@@ -465,11 +479,12 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2022/09/10/fMRI-prep/">
+                <a href="/2022/09/10/Neuroimage_fmriprep_using/">
                     <div class="card-image">
                         
                         
@@ -485,17 +500,22 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-10
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Pindong Chen
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Neuroimage/" class="post-category">
+                                    Neuroimage
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -514,13 +534,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/05/14/NLP-bak/">
+                <a href="/2018/11/21/Dev_flask_sql/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Viterbi 算法 Python实现 [NLP学习一]">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="flask_sqlalchemy 查询结果转dict 终极解决方案">
                         
-                        <span class="card-title">Viterbi 算法 Python实现 [NLP学习一]</span>
+                        <span class="card-title">flask_sqlalchemy 查询结果转dict 终极解决方案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -531,7 +551,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-21
                             </span>
                         <span class="publish-author">
                             
@@ -544,8 +564,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/NLP/">
-                        <span class="chip bg-color">NLP</span>
+                    <a href="/tags/flask-python-web/">
+                        <span class="chip bg-color">flask python web</span>
                     </a>
                     
                 </div>
