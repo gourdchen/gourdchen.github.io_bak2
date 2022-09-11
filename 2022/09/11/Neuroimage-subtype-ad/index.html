@@ -4,12 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="fMRIprep preprocessing, Pin The Brain">
-    <meta name="description" content="基本要求
-BIDS 格式
-至少具有T1和fMRI两个模态
-
-预处理参数&amp;quot;docker run -it --rm --name &amp;#123;subject_ids&amp;#125; -v &amp;#123;bids_data_path&amp;#125">
+    <meta name="keywords" content="Alzheimer&#39;s disease,阿尔茨海默病,亚型">
+    <meta name="description" content="研究背景阿尔茨海默病（Alzheimer’s disease, AD）俗称老年痴呆，是多发于老年人群中的一种神经退行性疾病。随着老龄化的来临，AD的发病率逐年升高，越来越成为不可忽视的健康问题。目前还没有有效的AD治疗手段，早诊断早干预显得">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +17,7 @@ BIDS 格式
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>fMRIprep preprocessing | Pin The Brain</title>
+    <title>Neuroimage_subtype_ad | Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -253,12 +249,12 @@ BIDS 格式
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">fMRIprep preprocessing</h1>
+                    <h1 class="description center-align post-title">Neuroimage_subtype_ad</h1>
                 </div>
             </div>
         </div>
@@ -282,8 +278,8 @@ BIDS 格式
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MRI/">
-                                <span class="chip bg-color">MRI</span>
+                            <a href="/tags/Neuroimage/">
+                                <span class="chip bg-color">Neuroimage</span>
                             </a>
                         
                     </div>
@@ -307,7 +303,7 @@ BIDS 格式
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-09-10
+                    2022-09-11
                 </div>
                 
 
@@ -328,13 +324,15 @@ BIDS 格式
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h1><ul>
-<li>BIDS 格式</li>
-<li>至少具有T1和fMRI两个模态</li>
-</ul>
-<h1 id="预处理参数"><a href="#预处理参数" class="headerlink" title="预处理参数"></a>预处理参数</h1><p><code>&quot;docker run -it --rm --name &#123;subject_ids&#125; -v &#123;bids_data_path&#125;:/data -v &#123;freesurfer_license&#125;:/opt/freesurfer/license.txt -v &#123;bids_output_path&#125;:/out -v &#123;fmri_work&#125;:/work &#123;contianer_id&#125; /data /out --skip_bids_validation   -w /work --n_cpus 24 --omp-nthreads  &#123;thread&#125;  --resource-monitor participant --participant-label &#123;subject_ids&#125; --output-spaces MNI152NLin6Asym:res-2 MNI152NLin2009cAsym fsaverage --cifti-output  --ignore fieldmaps&quot;</code></p>
-<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><p>每个fmriprep预处理尽量纳入少于10人，人数多后fmriprep构建索引极慢</p>
-<p>推荐参考 <a target="_blank" rel="noopener" href="https://github.com/hlpureboy/fMRIprep-To-Machine-Learning">https://github.com/hlpureboy/fMRIprep-To-Machine-Learning</a></p>
+                <h1 id="研究背景"><a href="#研究背景" class="headerlink" title="研究背景"></a>研究背景</h1><p>阿尔茨海默病（Alzheimer’s disease, AD）俗称老年痴呆，是多发于老年人群中的一种神经退行性疾病。随着老龄化的来临，AD的发病率逐年升高，越来越成为不可忽视的健康问题。目前还没有有效的AD治疗手段，早诊断早干预显得十分重要。<br>AD在病理分布、脑萎缩以及临床表现等方面具有较大的异质性，这些异质性造成了对疾病的误诊以及对药物研究的阻碍。AD患者通常会出现涉及多个脑功能网络的脑活动异常，造成认知能力的严重下降。然而，AD的脑网络异常的异质性与其所对应的结构改变、认知能力下降的关系尚不明确。</p>
+<h1 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h1><p>研究采用国内多家医院合作建立的MCAD数据库和美国ADNI公开数据库的共1100例数据进行了系统研究。本研究基于前期发现的AD异常脑网络（Jin et al, 2020），使用非负矩阵分解（NMF）方法将AD患者聚类得到不同的AD亚型，随后对各个亚型的功能异常、结构萎缩和纵向改变进行了评估。</p>
+<h1 id="主要结果"><a href="#主要结果" class="headerlink" title="主要结果"></a>主要结果</h1><h2 id="功能网络亚型"><a href="#功能网络亚型" class="headerlink" title="功能网络亚型"></a>功能网络亚型</h2><p>基于AD的异常功能网络，本研究在两个数据集上发现了稳定、可重复的4个AD功能亚型（图2）。每个亚型对应一个代表性脑网络（RFN），分别为前额叶网络、默认网络、扣带回相关网络和基底神经节相关网络。</p>
+<h2 id="功能网络损伤模式"><a href="#功能网络损伤模式" class="headerlink" title="功能网络损伤模式"></a>功能网络损伤模式</h2><p>进一步，研究发现4个AD亚型的功能网络损伤模式存在显著差异。</p>
+<p>相比于正常老年人，亚型1具有轻微但弥漫全脑的功能网络异常；亚型2的功能网络异常主要集中于默认网络且伴随前额叶网络的异常升高；亚型3在前扣带回相关的功能网络中存在显著降低，同时具有前额叶网络的异常升高；亚型4的功能网络降低集中于双侧基底神经节，其伴随前额叶网络的异常升高（图3A）。更重要的是，除了弥漫性损伤的亚型以外，其他亚型的特异性损伤模式在MCAD和ADNI数据集上具有高度可重复性（图3B）。除此以外，各个亚型的脑网络损伤特异于其对应的RFN，在其他亚型的RFN中损伤较轻微（图3C）。<br>鉴于两个数据集间亚型对应的RFN和脑网络损伤模式高度一致性，后续统计将两个数据集进行合并研究。</p>
+<h2 id="亚型人口学及认知特征"><a href="#亚型人口学及认知特征" class="headerlink" title="亚型人口学及认知特征"></a>亚型人口学及认知特征</h2><p>在人口学特征上，4个亚型在所有数据站点和数据库中均有分布，并且在性别比例上不存在显著差异。而在年龄分布上，亚型3相对年长于亚型1和亚型2。在认知功能上，亚型1的认知能力最好，亚型3和亚型4次之，亚型2的认知能力最差。进一步利用ADNI的随访信息，发现尽管亚型1认知能力较好，但其疾病进展仍旧很快。认知能力相对差的亚型3的认知能力保持最好。各个亚型在不同的认知领域上具有不同轨迹，例如在视觉空间能力上，亚型1具有比亚型3更慢的下降速度。结果表明识别脑网络的异质性有助于辨别不同的认知损伤模式，未来有望实现更加精准地施以干预措施，更加有效地减缓疾病进程。</p>
+<h2 id="亚型脑萎缩特征"><a href="#亚型脑萎缩特征" class="headerlink" title="亚型脑萎缩特征"></a>亚型脑萎缩特征</h2><p>在亚型间的脑萎缩比较上，亚型1显示了最轻的脑萎缩，亚型2显示了最严重的萎缩，亚型3和亚型4具有类似的萎缩程度但具有不同的萎缩模式。亚型1在海马区域具有和其他亚型类似的损伤程度，但在其他脑区具有更轻微的萎缩；亚型2在左侧颞叶、楔前叶以及中央旁小叶上具有最严重的萎缩；亚型3在扣带回具有最严重的萎缩；亚型4在右侧颞叶和枕叶具有最严重的萎缩。结果表明，不同的脑网络亚型对于与不同的脑萎缩模式，反映了潜在的不同病理机制。</p>
+<h2 id="主要结论"><a href="#主要结论" class="headerlink" title="主要结论"></a>主要结论</h2><p>这项研究为研究AD的异质性提供了新的视角，基于多中心大样本定义稳定可重复的AD亚型，有望在未来利用它们为临床决策提供信息，为AD的精准诊疗和干预奠定了理论基础。</p>
+<h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><p><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0006322322013683">https://www.sciencedirect.com/science/article/pii/S0006322322013683</a></p>
 
                 
             </div>
@@ -361,7 +359,7 @@ BIDS 格式
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://gourdchen.github.io/2022/09/10/Neuroimage_fmriprep_using/">http://gourdchen.github.io/2022/09/10/Neuroimage_fmriprep_using/</a>
+                    <a href="http://gourdchen.github.io/2022/09/11/Neuroimage-subtype-ad/">http://gourdchen.github.io/2022/09/11/Neuroimage-subtype-ad/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -399,8 +397,8 @@ BIDS 格式
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MRI/">
-                                    <span class="chip bg-color">MRI</span>
+                                <a href="/tags/Neuroimage/">
+                                    <span class="chip bg-color">Neuroimage</span>
                                 </a>
                             
                         </div>
@@ -479,9 +477,60 @@ BIDS 格式
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2022/09/11/Neuroimage-subtype-ad/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Neuroimage_subtype_ad">
+                        
+                        <span class="card-title">Neuroimage_subtype_ad</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Neuroimage/" class="post-category">
+                                    Neuroimage
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Neuroimage/">
+                        <span class="chip bg-color">Neuroimage</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/09/10/Ops_uwsgi/">
                     <div class="card-image">
@@ -499,9 +548,9 @@ BIDS 格式
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -519,51 +568,6 @@ BIDS 格式
                     
                     <a href="/tags/web/">
                         <span class="chip bg-color">web</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2018/11/21/Dev_flask_sql/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="flask_sqlalchemy 查询结果转dict 终极解决方案">
-                        
-                        <span class="card-title">flask_sqlalchemy 查询结果转dict 终极解决方案</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-11-21
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Pindong Chen
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/flask-python-web/">
-                        <span class="chip bg-color">flask python web</span>
                     </a>
                     
                 </div>

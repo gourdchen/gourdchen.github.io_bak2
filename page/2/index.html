@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Category: ML, Pin The Brain">
+    <meta name="keywords" content="Pin The Brain">
     <meta name="description" content="Pin The Brain">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Category: ML | Pin The Brain</title>
+    <title>Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -43,10 +43,6 @@
 
 
 
-
-    
-        <link rel="stylesheet" type="text/css" href="/css/reward.css">
-    
 
 
 
@@ -245,6 +241,7 @@
 
 </header>
 
+    
     <div class="bg-cover pd-header about-cover">
     <div class="container">
     <div class="row">
@@ -274,95 +271,47 @@
     </div>
 </div>
 
+
 <main class="content">
 
     
 
-<div id="category-cloud" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;Post Categories
-            </div>
-            <div class="tag-chips">
-                
-                
-                
-                <a href="/categories/Dev/" title="Dev: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">Dev
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/ML/" title="ML: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #F5EEF8;">ML
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Neuroimage/" title="Neuroimage: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">Neuroimage
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Ops/" title="Ops: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #E8F8F5;">Ops
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
     
 
+    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row tags-posts">
+        <div class="row article-row">
             
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2018/05/14/ML_nlp_veterbi/">
-                        <div class="card-image tag-image">
+                    <a href="/2018/03/14/Ops_installnation_mysql/">
+                        <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Viterbi 算法 Python实现 [NLP学习一]">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Linux Centos 7.2 rpm 安装MySQL 5.7">
                             
-                            <span class="card-title">Viterbi 算法 Python实现 [NLP学习一]</span>
+                            <span class="card-title">Linux Centos 7.2 rpm 安装MySQL 5.7</span>
                         </div>
                     </a>
+
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                原链接 ： https://www.cnblogs.com/eating-gourd/p/9036977.html
-最近思考了一下未来，结合老师的意见，还是决定挑一个方向开始研究了，虽然个人更喜欢鼓捣。深思熟虑后，结合自己的兴趣点，选择了N
+                                服务器需要换python环境，手贱重装了，今天凑巧需要测试数据库，花了一个小时搞了一下MySQL安装。
+删除原有Mariadb说明：目前centos默认的MySQL是Mariadb，由于习惯了MySQL（Oracle）加上一堆乱七八糟的原因
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-14
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/ML/" class="post-category">
-                                    ML
+                                <a href="/categories/Ops/" class="post-category">
+                                    Ops
                                 </a>
                                 
                                 
@@ -373,18 +322,44 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/NLP/">
-                            <span class="chip bg-color">NLP</span>
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
                         </a>
                         
                     </div>
                     
                 </div>
             </div>
+              <!-- 隐藏某个文章 -->
             
         </div>
     </article>
+
 </main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">2 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a class="right btn-floating btn-large disabled">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
 
 
 
