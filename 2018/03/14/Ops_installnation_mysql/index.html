@@ -320,6 +320,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -344,11 +347,14 @@
 <p><code>service start mysqld</code></p>
 <p>将会在日志文件中记录默认密码，日志文件路径如下：<br><code>/var/log/mysqld.log</code></p>
 <p>找到日志文件，查看其中密码，然后登陆MySQL客户端</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p #进入客户端</span><br><span class="line"></span><br><span class="line">set PASSWORD=PASSWORD(&#x27;password&#x27;)；#即可重新设置 root 密码</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">mysql -uroot -p #进入客户端
+
+set PASSWORD&#x3D;PASSWORD(&#39;password&#39;)；#即可重新设置 root 密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h2><p>打开MySQL配置文件 &#x2F;etc&#x2F;my.cnf</p>
 <p>在 [mysqld] 标签下，添加以下设置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-server=utf8    #服务器端默认编码</span><br><span class="line">default-storage-engine=INNODB      #默认存储引擎</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-max_connections" data-language="max_connections"><code class="language-max_connections">character-set-server&#x3D;utf8    #服务器端默认编码
+default-storage-engine&#x3D;INNODB      #默认存储引擎<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h2 id="授权远程访问"><a href="#授权远程访问" class="headerlink" title="授权远程访问"></a>授权远程访问</h2><p>登陆MySQL客户端，输入</p>
 <p><code>grant all privileges on *.* to &#39;root&#39;@&#39;%&#39;identified by &#39;password&#39; with grant option;</code>
@@ -604,6 +610,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->

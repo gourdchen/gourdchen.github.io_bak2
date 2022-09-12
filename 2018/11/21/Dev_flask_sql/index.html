@@ -311,6 +311,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -321,7 +324,65 @@
 <p>网上的方法主要问题在于只能处理result对象或model对象之一，当查询某个表全部字段时，如<br><code>db.session.query(User).filter().all()</code></p>
 <p>其返回User这个类的对象列表，而查询某些字段或者多表连接时，如：<br><code>db.session.query(User.UserID,User.UserName).filter().all()</code></p>
 <p>其返回result对象的列表，这两种情况下，对象的属性不同，导致很多情况下只能适应一种返回。今天趁闲着没事，把两种情况的查询结果转dict作了一下整理，封装为一个queryToDict函数,并同时支持all()返回的列表和first()返回的单个对象结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">from datetime import datetime as cdatetime #有时候会返回datatime类型</span><br><span class="line">from datetime import date,time</span><br><span class="line">from flask_sqlalchemy import Model</span><br><span class="line">from sqlalchemy.orm.query import Query</span><br><span class="line">from sqlalchemy import DateTime,Numeric,Date,Time #有时又是DateTime</span><br><span class="line"> </span><br><span class="line">def queryToDict(models):</span><br><span class="line">    if(isinstance(models,list)):</span><br><span class="line">        if(isinstance(models[0],Model)):</span><br><span class="line">            lst = []</span><br><span class="line">            for model in models:</span><br><span class="line">                gen = model_to_dict(model)</span><br><span class="line">                dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">                lst.append(dit)</span><br><span class="line">            return lst</span><br><span class="line">        else:</span><br><span class="line">            res = result_to_dict(models)</span><br><span class="line">            return res</span><br><span class="line">    else:</span><br><span class="line">        if (isinstance(models, Model)):</span><br><span class="line">            gen = model_to_dict(models)</span><br><span class="line">            dit = dict((g[0],g[1]) for g in gen)</span><br><span class="line">            return dit</span><br><span class="line">        else:</span><br><span class="line">            res = dict(zip(models.keys(), models))</span><br><span class="line">            find_datetime(res)</span><br><span class="line">            return res</span><br><span class="line">#当结果为result对象列表时，result有key()方法</span><br><span class="line">def result_to_dict(results):</span><br><span class="line">    res = [dict(zip(r.keys(), r)) for r in results]</span><br><span class="line">    #这里r为一个字典，对象传递直接改变字典属性</span><br><span class="line">    for r in res:</span><br><span class="line">        find_datetime(r)</span><br><span class="line">    return res</span><br><span class="line">def model_to_dict(model):      #这段来自于参考资源</span><br><span class="line">    for col in model.__table__.columns:</span><br><span class="line">        if isinstance(col.type, DateTime):</span><br><span class="line">            value = convert_datetime(getattr(model, col.name))</span><br><span class="line">        elif isinstance(col.type, Numeric):</span><br><span class="line">            value = float(getattr(model, col.name))</span><br><span class="line">        else:</span><br><span class="line">            value = getattr(model, col.name)</span><br><span class="line">        yield (col.name, value)</span><br><span class="line">def find_datetime(value):</span><br><span class="line">    for v in value:</span><br><span class="line">        if (isinstance(value[v], cdatetime)):</span><br><span class="line">            value[v] = convert_datetime(value[v])   #这里原理类似，修改的字典对象，不用返回即可修改</span><br><span class="line">def convert_datetime(value):</span><br><span class="line">    if value:</span><br><span class="line">        if(isinstance(value,(cdatetime,DateTime))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">        elif(isinstance(value,(date,Date))):</span><br><span class="line">            return value.strftime(&quot;%Y-%m-%d&quot;)</span><br><span class="line">        elif(isinstance(value,(Time,time))):</span><br><span class="line">            return value.strftime(&quot;%H:%M:%S&quot;)</span><br><span class="line">    else:</span><br><span class="line">        return &quot;&quot;</span><br><span class="line">1</span><br><span class="line">dit = dict((g[0],g[1]) for g in gen)相关代码也是之前查找资料获得，现在找不到出处了，作者可以联系我。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">from datetime import datetime as cdatetime #有时候会返回datatime类型
+from datetime import date,time
+from flask_sqlalchemy import Model
+from sqlalchemy.orm.query import Query
+from sqlalchemy import DateTime,Numeric,Date,Time #有时又是DateTime
+ 
+def queryToDict(models):
+    if(isinstance(models,list)):
+        if(isinstance(models[0],Model)):
+            lst &#x3D; []
+            for model in models:
+                gen &#x3D; model_to_dict(model)
+                dit &#x3D; dict((g[0],g[1]) for g in gen)
+                lst.append(dit)
+            return lst
+        else:
+            res &#x3D; result_to_dict(models)
+            return res
+    else:
+        if (isinstance(models, Model)):
+            gen &#x3D; model_to_dict(models)
+            dit &#x3D; dict((g[0],g[1]) for g in gen)
+            return dit
+        else:
+            res &#x3D; dict(zip(models.keys(), models))
+            find_datetime(res)
+            return res
+#当结果为result对象列表时，result有key()方法
+def result_to_dict(results):
+    res &#x3D; [dict(zip(r.keys(), r)) for r in results]
+    #这里r为一个字典，对象传递直接改变字典属性
+    for r in res:
+        find_datetime(r)
+    return res
+def model_to_dict(model):      #这段来自于参考资源
+    for col in model.__table__.columns:
+        if isinstance(col.type, DateTime):
+            value &#x3D; convert_datetime(getattr(model, col.name))
+        elif isinstance(col.type, Numeric):
+            value &#x3D; float(getattr(model, col.name))
+        else:
+            value &#x3D; getattr(model, col.name)
+        yield (col.name, value)
+def find_datetime(value):
+    for v in value:
+        if (isinstance(value[v], cdatetime)):
+            value[v] &#x3D; convert_datetime(value[v])   #这里原理类似，修改的字典对象，不用返回即可修改
+def convert_datetime(value):
+    if value:
+        if(isinstance(value,(cdatetime,DateTime))):
+            return value.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)
+        elif(isinstance(value,(date,Date))):
+            return value.strftime(&quot;%Y-%m-%d&quot;)
+        elif(isinstance(value,(Time,time))):
+            return value.strftime(&quot;%H:%M:%S&quot;)
+    else:
+        return &quot;&quot;
+1
+dit &#x3D; dict((g[0],g[1]) for g in gen)相关代码也是之前查找资料获得，现在找不到出处了，作者可以联系我。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -571,6 +632,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->

@@ -320,6 +320,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -335,7 +338,71 @@
 <p>我的理解是依次迭代每个时刻，找到概率最大的状态即为该时刻状态，这样理解错误在于求的隐藏状态是一个链，根据马尔可夫假设，下一刻时刻的状态是依赖前一个状态的，我的理解就将状态之间割裂了，无法行成链。</p>
 <p>正确的算法是每次迭代过程中，记录每种状态概率最大时其前驱状态，这样到最后一个时刻，选择概率最大的状态，再进行回溯。</p>
 <p>代码如下：直接使用List、迭代过程中没有对概率进行判断，还有优化空间。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"># state 存放隐藏序列，sunny 0 rainy 1</span><br><span class="line"># obser 存放观测序列  0 1 2 对应 walk shop clean</span><br><span class="line"># start_p 是初始概率，0元素对应sunny的初始概率 1元素对应rainy的概率</span><br><span class="line"># transition_p 转移概率矩阵 2*2 行为初始状态  列为新状态</span><br><span class="line"># emission_p 发射概率矩阵 2*3 行为隐藏状态  列为可观测状态</span><br><span class="line"></span><br><span class="line"># 迭代过程，每次只需要记录第t个时间点 每个节点的最大概率即可，后续计算时直接使用前序节点的最大概率即可</span><br><span class="line">def compute(obser, state, start_p, transition_p, emission_p):</span><br><span class="line">    # max_p 记录每个时间点每个状态的最大概率，i行j列，（i,j）记录第i个时间点 j隐藏状态的最大概率</span><br><span class="line">    max_p = [[0 for col in range(len(state))] for row in range(len(obser))]</span><br><span class="line">    # path 记录max_p 对应概率处的路径 i 行 j列 （i,j）记录第i个时间点 j隐藏状态最大概率的情况下 其前驱状态</span><br><span class="line">    path = [[0 for col in range(len(state))] for row in range(len(obser))]</span><br><span class="line">    # 初始状态(1状态)</span><br><span class="line">    for i in range(len(state)):</span><br><span class="line">        # max_p[0][i]表示初始状态第i个隐藏状态的最大概率</span><br><span class="line">        # 概率 = start_p[i] * emission_p [state[i]][obser[0]]</span><br><span class="line">        max_p[0][i] = start_p[i] * emission_p[state[i]][obser[0]]</span><br><span class="line">        path[0][i] = i</span><br><span class="line">    # 后续循环状态(2-t状态)</span><br><span class="line">    # 此时max_p 中已记录第一个状态的两个隐藏状态概率</span><br><span class="line">    for i in range(1, len(obser)):  # 循环t-1次，初始已计算</span><br><span class="line">        max_item = [0 for i in range(len(state))]</span><br><span class="line">        for j in range(len(state)):  # 循环隐藏状态数，计算当前状态每个隐藏状态的概率</span><br><span class="line">            item = [0 for i in state]</span><br><span class="line">            for k in range(len(state)):  # 再次循环隐藏状态数，计算选定隐藏状态的前驱状态为各种状态的概率</span><br><span class="line">                p = max_p[i - 1][k] * emission_p[state[j]][obser[i]] * transition_p[state[k]][state[j]]</span><br><span class="line">                # k即代表前驱状态 k或state[k]均为前驱状态</span><br><span class="line">                item[state[k]] = p</span><br><span class="line">            # 设置概率记录为最大情况</span><br><span class="line">            max_item[state[j]] = max(item)</span><br><span class="line">            # 记录最大情况路径(下面语句的作用：当前时刻下第j个状态概率最大时，记录其前驱节点)</span><br><span class="line">            # item.index(max(item))寻找item的最大值索引，因item记录各种前驱情况的概率</span><br><span class="line">            path[i][state[j]] = item.index(max(item))</span><br><span class="line">        # 将单个状态的结果加入总列表max_p</span><br><span class="line">        max_p[i] = max_item</span><br><span class="line">    #newpath记录最后路径</span><br><span class="line">    newpath = []</span><br><span class="line">    #判断最后一个时刻哪个状态的概率最大</span><br><span class="line">    p=max_p[len(obser)-1].index(max(max_p[len(obser)-1]))</span><br><span class="line">    newpath.append(p)</span><br><span class="line">    #从最后一个状态开始倒着寻找前驱节点</span><br><span class="line">    for i in range(len(obser) - 1, 0, -1):</span><br><span class="line">        newpath.append(path[i][p])</span><br><span class="line">        p = path[i][p]</span><br><span class="line">    newpath.reverse()</span><br><span class="line">    return newpath</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #   隐状态</span><br><span class="line">    hidden_state = [&#x27;rainy&#x27;, &#x27;sunny&#x27;]</span><br><span class="line">    #   观测序列</span><br><span class="line">    obsevition = [&#x27;walk&#x27;, &#x27;shop&#x27;, &#x27;clean&#x27;]</span><br><span class="line">    state_s = [0, 1]</span><br><span class="line">    obser = [0, 1, 2]</span><br><span class="line">    #   初始状态，测试集中，0.6概率观测序列以sunny开始</span><br><span class="line">    start_probability = [0.6, 0.4]</span><br><span class="line">    #   转移概率，0.7：sunny下一天sunny的概率</span><br><span class="line">    transititon_probability = [[0.7, 0.3], [0.4, 0.6]]</span><br><span class="line">    #   发射概率，0.4：sunny在0.4概率下为shop</span><br><span class="line">    emission_probability = [[0.1, 0.4, 0.5], [0.6, 0.3, 0.1]]</span><br><span class="line">    result = compute(obser, state_s, start_probability, transititon_probability, emission_probability)</span><br><span class="line">    for k in range(len(result)):</span><br><span class="line">        print(hidden_state[int(result[k])])</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none"># state 存放隐藏序列，sunny 0 rainy 1
+# obser 存放观测序列  0 1 2 对应 walk shop clean
+# start_p 是初始概率，0元素对应sunny的初始概率 1元素对应rainy的概率
+# transition_p 转移概率矩阵 2*2 行为初始状态  列为新状态
+# emission_p 发射概率矩阵 2*3 行为隐藏状态  列为可观测状态
+
+# 迭代过程，每次只需要记录第t个时间点 每个节点的最大概率即可，后续计算时直接使用前序节点的最大概率即可
+def compute(obser, state, start_p, transition_p, emission_p):
+    # max_p 记录每个时间点每个状态的最大概率，i行j列，（i,j）记录第i个时间点 j隐藏状态的最大概率
+    max_p &#x3D; [[0 for col in range(len(state))] for row in range(len(obser))]
+    # path 记录max_p 对应概率处的路径 i 行 j列 （i,j）记录第i个时间点 j隐藏状态最大概率的情况下 其前驱状态
+    path &#x3D; [[0 for col in range(len(state))] for row in range(len(obser))]
+    # 初始状态(1状态)
+    for i in range(len(state)):
+        # max_p[0][i]表示初始状态第i个隐藏状态的最大概率
+        # 概率 &#x3D; start_p[i] * emission_p [state[i]][obser[0]]
+        max_p[0][i] &#x3D; start_p[i] * emission_p[state[i]][obser[0]]
+        path[0][i] &#x3D; i
+    # 后续循环状态(2-t状态)
+    # 此时max_p 中已记录第一个状态的两个隐藏状态概率
+    for i in range(1, len(obser)):  # 循环t-1次，初始已计算
+        max_item &#x3D; [0 for i in range(len(state))]
+        for j in range(len(state)):  # 循环隐藏状态数，计算当前状态每个隐藏状态的概率
+            item &#x3D; [0 for i in state]
+            for k in range(len(state)):  # 再次循环隐藏状态数，计算选定隐藏状态的前驱状态为各种状态的概率
+                p &#x3D; max_p[i - 1][k] * emission_p[state[j]][obser[i]] * transition_p[state[k]][state[j]]
+                # k即代表前驱状态 k或state[k]均为前驱状态
+                item[state[k]] &#x3D; p
+            # 设置概率记录为最大情况
+            max_item[state[j]] &#x3D; max(item)
+            # 记录最大情况路径(下面语句的作用：当前时刻下第j个状态概率最大时，记录其前驱节点)
+            # item.index(max(item))寻找item的最大值索引，因item记录各种前驱情况的概率
+            path[i][state[j]] &#x3D; item.index(max(item))
+        # 将单个状态的结果加入总列表max_p
+        max_p[i] &#x3D; max_item
+    #newpath记录最后路径
+    newpath &#x3D; []
+    #判断最后一个时刻哪个状态的概率最大
+    p&#x3D;max_p[len(obser)-1].index(max(max_p[len(obser)-1]))
+    newpath.append(p)
+    #从最后一个状态开始倒着寻找前驱节点
+    for i in range(len(obser) - 1, 0, -1):
+        newpath.append(path[i][p])
+        p &#x3D; path[i][p]
+    newpath.reverse()
+    return newpath
+
+
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
+    #   隐状态
+    hidden_state &#x3D; [&#39;rainy&#39;, &#39;sunny&#39;]
+    #   观测序列
+    obsevition &#x3D; [&#39;walk&#39;, &#39;shop&#39;, &#39;clean&#39;]
+    state_s &#x3D; [0, 1]
+    obser &#x3D; [0, 1, 2]
+    #   初始状态，测试集中，0.6概率观测序列以sunny开始
+    start_probability &#x3D; [0.6, 0.4]
+    #   转移概率，0.7：sunny下一天sunny的概率
+    transititon_probability &#x3D; [[0.7, 0.3], [0.4, 0.6]]
+    #   发射概率，0.4：sunny在0.4概率下为shop
+    emission_probability &#x3D; [[0.1, 0.4, 0.5], [0.6, 0.3, 0.1]]
+    result &#x3D; compute(obser, state_s, start_probability, transititon_probability, emission_probability)
+    for k in range(len(result)):
+        print(hidden_state[int(result[k])])
+        <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -581,6 +648,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->

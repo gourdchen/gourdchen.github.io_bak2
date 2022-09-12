@@ -323,6 +323,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -336,10 +339,21 @@
 </ul>
 <h1 id="Research-pipline"><a href="#Research-pipline" class="headerlink" title="Research pipline"></a>Research pipline</h1><p>Info table (pandas) -&gt; Preprocessing (CAT12 &amp; fmriprep &amp; BRANT) -&gt;model (scikit-learn &amp; …) -&gt; statistic (scipy &amp; statsmodels) -&gt; visualization (nilearn &amp; enigmatoolbox &amp; connectome workbench) -&gt; writing (word &amp; endnote)</p>
 <h1 id="Toolbox"><a href="#Toolbox" class="headerlink" title="Toolbox"></a>Toolbox</h1><h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><p>Pandas is a python library for table processing. The important functions includes: <code>pd.read_csv pd.read_excel pd.merge pd.notna pd.concat...</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">info = pd.read_csv(&quot;demo.csv&quot;)</span><br><span class="line"># select the patient</span><br><span class="line">patient_info = info.loc[info.group == &#x27;patient&#x27;]</span><br><span class="line"># select the normal controls</span><br><span class="line">nc_info = info.loc[info.group == &#x27;nc&#x27;]</span><br><span class="line"># select the normal controls with MMSE</span><br><span class="line">nc_info_with_mmse = nc_info[pd.notna(nc_info.MMSE)]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">info &#x3D; pd.read_csv(&quot;demo.csv&quot;)
+# select the patient
+patient_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;patient&#39;]
+# select the normal controls
+nc_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;nc&#39;]
+# select the normal controls with MMSE
+nc_info_with_mmse &#x3D; nc_info[pd.notna(nc_info.MMSE)]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="Nibabel"><a href="#Nibabel" class="headerlink" title="Nibabel"></a>Nibabel</h2><p>Nibabel can read almost all the file type of neuroimage in python, the data from file will be transfored into ndarray.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import nibabel as nib</span><br><span class="line">img = nib.load(&#x27;demo.nii&#x27;)</span><br><span class="line">img_data = img.get_fdata()</span><br><span class="line">img_header = img.header</span><br><span class="line">img.to_filename(&#x27;demo2.nii&#x27;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><div class="caption"><span>[lang:python]</span></div><code class="language-none">import nibabel as nib
+img &#x3D; nib.load(&#39;demo.nii&#39;)
+img_data &#x3D; img.get_fdata()
+img_header &#x3D; img.header
+img.to_filename(&#39;demo2.nii&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="Nilearn"><a href="#Nilearn" class="headerlink" title="Nilearn"></a>Nilearn</h2><p>A tool that include many common analysis, image transformation, and machine learning methods.</p>
 <h2 id="SPM-amp-CAT12"><a href="#SPM-amp-CAT12" class="headerlink" title="SPM &amp; CAT12"></a>SPM &amp; CAT12</h2><p>For T1-weighted preprocessing</p>
@@ -604,6 +618,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->

@@ -9,7 +9,7 @@
 本着一路pip的原则，首先来了一个漂亮的
 pip3 install uwsgi
 不幸报错
-1234567891">
+[gcc -pthr">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -318,6 +318,9 @@ pip3 install uwsgi
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -327,9 +330,35 @@ pip3 install uwsgi
 <p>本着一路pip的原则，首先来了一个漂亮的</p>
 <p><code>pip3 install uwsgi</code></p>
 <p>不幸报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[gcc -pthread] core/zlib.o</span><br><span class="line">    [gcc -pthread] core/regexp.o</span><br><span class="line">    [gcc -pthread] core/routing.o</span><br><span class="line">    [gcc -pthread] core/yaml.o</span><br><span class="line">    [gcc -pthread] core/ssl.o</span><br><span class="line">    [gcc -pthread] core/legion.o</span><br><span class="line">    [gcc -pthread] core/xmlconf.o</span><br><span class="line">    [gcc -pthread] core/dot_h.o</span><br><span class="line">    [gcc -pthread] core/config_py.o</span><br><span class="line">    *** uWSGI compiling embedded plugins ***</span><br><span class="line">    [gcc -pthread] plugins/python/python_plugin.o</span><br><span class="line">    In file included from plugins/python/python_plugin.c:1:0:</span><br><span class="line">    plugins/python/uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory</span><br><span class="line">     #include &lt;Python.h&gt;</span><br><span class="line">                        ^</span><br><span class="line">    compilation terminated.</span><br><span class="line"> </span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command &quot;/usr/bin/python3.4 -u -c &quot;import setuptools, tokenize;__file__=&#x27;/tmp/pip-build-dsr9i4nq/uwsgi/setup.py&#x27;;f=getattr(tokenize, &#x27;open&#x27;, open)(__file__);code=f.read().replace(&#x27;\r\n&#x27;, &#x27;\n&#x27;);f.close();exec(compile(code, __file__, &#x27;exec&#x27;))&quot; install --record /tmp/pip-9835ofpr-record/install-record.txt --single-version-externally-managed --compile&quot; failed with error code 1 in /tmp/pip-build-dsr9i4nq/uwsgi/</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[gcc -pthread] core&#x2F;zlib.o
+    [gcc -pthread] core&#x2F;regexp.o
+    [gcc -pthread] core&#x2F;routing.o
+    [gcc -pthread] core&#x2F;yaml.o
+    [gcc -pthread] core&#x2F;ssl.o
+    [gcc -pthread] core&#x2F;legion.o
+    [gcc -pthread] core&#x2F;xmlconf.o
+    [gcc -pthread] core&#x2F;dot_h.o
+    [gcc -pthread] core&#x2F;config_py.o
+    *** uWSGI compiling embedded plugins ***
+    [gcc -pthread] plugins&#x2F;python&#x2F;python_plugin.o
+    In file included from plugins&#x2F;python&#x2F;python_plugin.c:1:0:
+    plugins&#x2F;python&#x2F;uwsgi_python.h:2:20: fatal error: Python.h: No such file or directory
+     #include &lt;Python.h&gt;
+                        ^
+    compilation terminated.
+ 
+    ----------------------------------------
+Command &quot;&#x2F;usr&#x2F;bin&#x2F;python3.4 -u -c &quot;import setuptools, tokenize;__file__&#x3D;&#39;&#x2F;tmp&#x2F;pip-build-dsr9i4nq&#x2F;uwsgi&#x2F;setup.py&#39;;f&#x3D;getattr(tokenize, &#39;open&#39;, open)(__file__);code&#x3D;f.read().replace(&#39;\r\n&#39;, &#39;\n&#39;);f.close();exec(compile(code, __file__, &#39;exec&#39;))&quot; install --record &#x2F;tmp&#x2F;pip-9835ofpr-record&#x2F;install-record.txt --single-version-externally-managed --compile&quot; failed with error code 1 in &#x2F;tmp&#x2F;pip-build-dsr9i4nq&#x2F;uwsgi&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一看找不到python.h，肯定是依赖问题，网上一搜，基本答案都是安装 python-dev  和 build-essential，我试着yum了一下，发现居然没有找到包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos python3]# yum install python-dev</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Repository epel is listed more than once in the configuration</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.aliyun.com</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.aliyun.com</span><br><span class="line">No package python-dev available.</span><br><span class="line">Error: Nothing to do</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">[root@VM_0_13_centos python3]# yum install python-dev
+Loaded plugins: fastestmirror, langpacks
+Repository epel is listed more than once in the configuration
+Loading mirror speeds from cached hostfile
+ * base: mirrors.aliyun.com
+ * extras: mirrors.aliyun.com
+ * updates: mirrors.aliyun.com
+No package python-dev available.
+Error: Nothing to do<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>后来无意中翻到 <a target="_blank" rel="noopener" href="http://blog.csdn.net/dingqingsong/article/details/77651414">http://blog.csdn.net/dingqingsong/article/details/77651414</a> ，虽然报错不太一致，但好歹都是 找不到 &lt;python.h&gt;</p>
 <p><code>yum install python34-devel</code></p>
 <p>Done</p>
@@ -587,6 +616,9 @@ pip3 install uwsgi
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
