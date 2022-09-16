@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Neuroimage tutorial I, Pin The Brain">
+    <meta name="keywords" content="Neuroimage tutorial I - The Introduction, Pin The Brain">
     <meta name="description" content="IntroductionThis is a primary description for Neuroimage research based on python. The introduction for each filetype an">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Neuroimage tutorial I | Pin The Brain</title>
+    <title>Neuroimage tutorial I - The Introduction | Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -249,12 +249,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Neuroimage tutorial I</h1>
+                    <h1 class="description center-align post-title">Neuroimage tutorial I - The Introduction</h1>
                 </div>
             </div>
         </div>
@@ -346,28 +346,51 @@
 <h1 id="Toolbox-amp-Software"><a href="#Toolbox-amp-Software" class="headerlink" title="Toolbox &amp; Software"></a>Toolbox &amp; Software</h1><h2 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h2><p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/">Conda</a> is an open source package management system and environment management system that runs on Windows, macOS, Linux and z&#x2F;OS. Anaconda is a popular distribution of python, which includes almost the packages of machine learning.</p>
 <p>I recommend the <a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> as your python distribution and environment manager. Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others. </p>
 <h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><p>Pandas is a python library for table processing. The important functions includes: <code>pd.read_csv pd.read_excel pd.merge pd.notna pd.concat...</code></p>
-<pre class="line-numbers language-none"><code class="language-none">info &#x3D; pd.read_csv(&quot;demo.csv&quot;)
-# select the patient
-patient_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;patient&#39;]
-# select the normal controls
-nc_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;nc&#39;]
-# select the normal controls with MMSE
-nc_info_with_mmse &#x3D; nc_info[pd.notna(nc_info.MMSE)]
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">info <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"demo.csv"</span><span class="token punctuation">)</span>
+<span class="token comment"># select the patient</span>
+patient_info <span class="token operator">=</span> info<span class="token punctuation">.</span>loc<span class="token punctuation">[</span>info<span class="token punctuation">.</span>group <span class="token operator">==</span> <span class="token string">'patient'</span><span class="token punctuation">]</span>
+<span class="token comment"># select the normal controls</span>
+nc_info <span class="token operator">=</span> info<span class="token punctuation">.</span>loc<span class="token punctuation">[</span>info<span class="token punctuation">.</span>group <span class="token operator">==</span> <span class="token string">'nc'</span><span class="token punctuation">]</span>
+<span class="token comment"># select the normal controls with MMSE</span>
+nc_info_with_mmse <span class="token operator">=</span> nc_info<span class="token punctuation">[</span>pd<span class="token punctuation">.</span>notna<span class="token punctuation">(</span>nc_info<span class="token punctuation">.</span>MMSE<span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="nibabel"><a href="#nibabel" class="headerlink" title="nibabel"></a>nibabel</h2><p>Nibabel can read almost all the file type of neuroimage in python, the data from file will be transfored into ndarray.</p>
-<pre class="line-numbers language-none"><div class="caption"><span>[lang:python]</span></div><code class="language-none">import nibabel as nib
-img &#x3D; nib.load(&#39;demo.nii&#39;)
-img_data &#x3D; img.get_fdata()
-img_header &#x3D; img.header
-img.to_filename(&#39;demo2.nii&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> nibabel <span class="token keyword">as</span> nib
+img <span class="token operator">=</span> nib<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token string">'demo.nii'</span><span class="token punctuation">)</span>
+img_data <span class="token operator">=</span> img<span class="token punctuation">.</span>get_fdata<span class="token punctuation">(</span><span class="token punctuation">)</span>
+img_header <span class="token operator">=</span> img<span class="token punctuation">.</span>header
+img<span class="token punctuation">.</span>to_filename<span class="token punctuation">(</span><span class="token string">'demo2.nii'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="nilearn"><a href="#nilearn" class="headerlink" title="nilearn"></a>nilearn</h2><p>A tool that include many common analysis, image transformation, and machine learning methods.</p>
-<h2 id="template-flow"><a href="#template-flow" class="headerlink" title="template flow"></a>template flow</h2><p>The repository includes the templates of neuroimage, e.g. MNI space, fsaverage space, and the atlas in different space.</p>
-<h2 id="SPM-amp-CAT12"><a href="#SPM-amp-CAT12" class="headerlink" title="SPM &amp; CAT12"></a>SPM &amp; CAT12</h2><p>For T1-weighted preprocessing</p>
-<h2 id="SPM-amp-BRANT"><a href="#SPM-amp-BRANT" class="headerlink" title="SPM &amp; BRANT"></a>SPM &amp; BRANT</h2><h2 id="AFNI"><a href="#AFNI" class="headerlink" title="AFNI"></a>AFNI</h2><p>A powerful toolbox for neuroimage, but I just use the slice timing correction function.</p>
+<h2 id="nilearn"><a href="#nilearn" class="headerlink" title="nilearn"></a>nilearn</h2><p>A tool that include many common analysis, image transformation, and machine learning methods. </p>
+<h2 id="template-flow"><a href="#template-flow" class="headerlink" title="template flow"></a>template flow</h2><p><a target="_blank" rel="noopener" href="https://www.templateflow.org/">TemplateFlow</a> s a modular, version-controlled resource that allows researchers to use templates “off-the-shelf” and share new ones.</p>
+<p>The repository includes the templates of neuroimage, e.g. MNI space, fsaverage space, and the atlas in different space.</p>
+<h2 id="SPM-amp-CAT12"><a href="#SPM-amp-CAT12" class="headerlink" title="SPM &amp; CAT12"></a>SPM &amp; CAT12</h2><p><a target="_blank" rel="noopener" href="https://neuro-jena.github.io/cat/">CAT (neuro-jena.github.io)</a> is a Computational Anatomy Toolbox for SPM for T1-weighted pre-processing and analysis. </p>
+<h2 id="SPM-amp-BRANT"><a href="#SPM-amp-BRANT" class="headerlink" title="SPM &amp; BRANT"></a>SPM &amp; BRANT</h2><p>To facilitate data processing and deal with above listed issues, we’ve written an extendable MATLAB based toolbox <a target="_blank" rel="noopener" href="https://sphinx-doc-brant.readthedocs.io/en/latest/index.html">BRANT</a>, which integrates fMRI data preprocessing, voxel-wise spontaneous activity analysis, functional connectivity analysis, complex network analysis, statistical analysis, data visualization as well as several useful utilities.</p>
+<p><img src="/2022/09/12/Neuroimage_tutorial_1/main_gui.png"></p>
+<h2 id="AFNI"><a href="#AFNI" class="headerlink" title="AFNI"></a>AFNI</h2><p>A powerful toolbox for neuroimage, but I just use the slice timing correction function.</p>
 <h2 id="ANTs"><a href="#ANTs" class="headerlink" title="ANTs"></a>ANTs</h2><p>The most powerful toolbox for registration.</p>
-<h2 id="connectome-workbench"><a href="#connectome-workbench" class="headerlink" title="connectome workbench"></a>connectome workbench</h2><h3 id="wb-view"><a href="#wb-view" class="headerlink" title="wb_view"></a>wb_view</h3><h3 id="wb-command"><a href="#wb-command" class="headerlink" title="wb_command"></a>wb_command</h3><h2 id="enigma-toolbox"><a href="#enigma-toolbox" class="headerlink" title="enigma toolbox"></a>enigma toolbox</h2>
+<h2 id="Connectome-workbench"><a href="#Connectome-workbench" class="headerlink" title="Connectome workbench"></a>Connectome workbench</h2><p>A very important tool for CIFTI processing and visualization.</p>
+<h3 id="wb-view"><a href="#wb-view" class="headerlink" title="wb_view"></a>wb_view</h3><img src="/2022/09/12/Neuroimage_tutorial_1/image-20220916221820610.png" style="zoom: 50%;">
+
+<h3 id="wb-command"><a href="#wb-command" class="headerlink" title="wb_command"></a>wb_command</h3><p>Command for image processing, including volume-to-surf mapping, smooth, resample, etc…</p>
+<h2 id="ENIGMA-TOOLBOX"><a href="#ENIGMA-TOOLBOX" class="headerlink" title="ENIGMA TOOLBOX"></a>ENIGMA TOOLBOX</h2><img src="/2022/09/12/Neuroimage_tutorial_1/Enigma_toolbox2-1663338128310-4.png" alt="img" style="zoom:33%;">
+
+<ul>
+<li><p>100+ ENIGMA-derived statistical maps</p>
+</li>
+<li><p>Compatible with any neuroimaging datasets and software</p>
+</li>
+<li><p>Cortical and subcortical visualization tools</p>
+</li>
+<li><p>Preprocessed micro- and macroscale data</p>
+</li>
+<li><p>Multiscale analytical workflows</p>
+</li>
+<li><p>Step-by-step tutorials</p>
+</li>
+</ul>
+
                 
             </div>
             <hr/>
