@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="File types and toolbox in Neuroimage research, Pin The Brain">
-    <meta name="description" content="IntroductionThis is a primary descrition for Neuroimage research based on python. The introduction for each filetype and">
+    <meta name="keywords" content="Neuroimage tutorial I, Pin The Brain">
+    <meta name="description" content="IntroductionThis is a primary description for Neuroimage research based on python. The introduction for each filetype an">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>File types and toolbox in Neuroimage research | Pin The Brain</title>
+    <title>Neuroimage tutorial I | Pin The Brain</title>
     <link rel="icon" type="image/png" href="/logo.png">
     
 
@@ -249,12 +249,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">File types and toolbox in Neuroimage research</h1>
+                    <h1 class="description center-align post-title">Neuroimage tutorial I</h1>
                 </div>
             </div>
         </div>
@@ -331,14 +331,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>This is a primary descrition for Neuroimage research based on python. The introduction for each filetype and toolbox just include the content that I used in my daliy work.</p>
+                <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>This is a primary description for Neuroimage research based on python. The introduction for each filetype and toolbox just include the content that I used in my daily work.</p>
+<div class="note default no-icon"><p>The tutorial is more suitable for Pythoner. MATLAB is strange for me.</p>
+</div>
+
 <h1 id="File-types"><a href="#File-types" class="headerlink" title="File types"></a>File types</h1><ul>
 <li>Nifti <code>*.nii, *.nii.gz</code> Most common file type for 3D&#x2F;4D storage </li>
 <li>Gifti <code>*.gii</code> surface storgae</li>
 <li>Cifti <code>*.dscalar.nii, *.dlabel.nii, *dtseries.nii ... </code> New filetype for both surface and volume data</li>
 </ul>
-<h1 id="Research-pipline"><a href="#Research-pipline" class="headerlink" title="Research pipline"></a>Research pipline</h1><p>Info table (pandas) -&gt; Preprocessing (CAT12 &amp; fmriprep &amp; BRANT) -&gt;model (scikit-learn &amp; …) -&gt; statistic (scipy &amp; statsmodels) -&gt; visualization (nilearn &amp; enigmatoolbox &amp; connectome workbench) -&gt; writing (word &amp; endnote)</p>
-<h1 id="Toolbox"><a href="#Toolbox" class="headerlink" title="Toolbox"></a>Toolbox</h1><h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><p>Pandas is a python library for table processing. The important functions includes: <code>pd.read_csv pd.read_excel pd.merge pd.notna pd.concat...</code></p>
+<h1 id="Research-pipline"><a href="#Research-pipline" class="headerlink" title="Research pipline"></a>Research pipline</h1><p>Info table (pandas) -&gt; Pre-processing (CAT12 &amp; fmriprep &amp; BRANT) -&gt;model (scikit-learn &amp; …) -&gt; statistic (scipy &amp; statsmodels) -&gt; visualization (nilearn &amp; enigmatoolbox &amp; connectome workbench) -&gt; writing (word &amp; endnote)</p>
+<h1 id="Operation-system"><a href="#Operation-system" class="headerlink" title="Operation system"></a>Operation system</h1><p><strong>Windows</strong> is a friendly system for coding, writing, and reading. <strong>Linux</strong> is good at stability and high-performance calculation, while less easy-to-use.  I recommend a combination consist of the <strong>Windows</strong> terminal and <strong>Linux</strong> server. </p>
+<p>If you don’t have a Linux server,  the <strong>Windows Subsystem Linux</strong> (<a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL">microsoft&#x2F;WSL: Issues found on WSL (github.com)</a>) can do the almost work of Linux server.</p>
+<h1 id="Toolbox-amp-Software"><a href="#Toolbox-amp-Software" class="headerlink" title="Toolbox &amp; Software"></a>Toolbox &amp; Software</h1><h2 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h2><p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/">Conda</a> is an open source package management system and environment management system that runs on Windows, macOS, Linux and z&#x2F;OS. Anaconda is a popular distribution of python, which includes almost the packages of machine learning.</p>
+<p>I recommend the <a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> as your python distribution and environment manager. Miniconda is a free minimal installer for conda. It is a small, bootstrap version of Anaconda that includes only conda, Python, the packages they depend on, and a small number of other useful packages, including pip, zlib and a few others. </p>
+<h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><p>Pandas is a python library for table processing. The important functions includes: <code>pd.read_csv pd.read_excel pd.merge pd.notna pd.concat...</code></p>
 <pre class="line-numbers language-none"><code class="language-none">info &#x3D; pd.read_csv(&quot;demo.csv&quot;)
 # select the patient
 patient_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;patient&#39;]
@@ -348,16 +355,17 @@ nc_info &#x3D; info.loc[info.group &#x3D;&#x3D; &#39;nc&#39;]
 nc_info_with_mmse &#x3D; nc_info[pd.notna(nc_info.MMSE)]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="Nibabel"><a href="#Nibabel" class="headerlink" title="Nibabel"></a>Nibabel</h2><p>Nibabel can read almost all the file type of neuroimage in python, the data from file will be transfored into ndarray.</p>
+<h2 id="nibabel"><a href="#nibabel" class="headerlink" title="nibabel"></a>nibabel</h2><p>Nibabel can read almost all the file type of neuroimage in python, the data from file will be transfored into ndarray.</p>
 <pre class="line-numbers language-none"><div class="caption"><span>[lang:python]</span></div><code class="language-none">import nibabel as nib
 img &#x3D; nib.load(&#39;demo.nii&#39;)
 img_data &#x3D; img.get_fdata()
 img_header &#x3D; img.header
 img.to_filename(&#39;demo2.nii&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="Nilearn"><a href="#Nilearn" class="headerlink" title="Nilearn"></a>Nilearn</h2><p>A tool that include many common analysis, image transformation, and machine learning methods.</p>
+<h2 id="nilearn"><a href="#nilearn" class="headerlink" title="nilearn"></a>nilearn</h2><p>A tool that include many common analysis, image transformation, and machine learning methods.</p>
+<h2 id="template-flow"><a href="#template-flow" class="headerlink" title="template flow"></a>template flow</h2><p>The repository includes the templates of neuroimage, e.g. MNI space, fsaverage space, and the atlas in different space.</p>
 <h2 id="SPM-amp-CAT12"><a href="#SPM-amp-CAT12" class="headerlink" title="SPM &amp; CAT12"></a>SPM &amp; CAT12</h2><p>For T1-weighted preprocessing</p>
-<h2 id="AFNI"><a href="#AFNI" class="headerlink" title="AFNI"></a>AFNI</h2><p>A powerful toolbox for neuroimage, but I just use the slice timing correction function.</p>
+<h2 id="SPM-amp-BRANT"><a href="#SPM-amp-BRANT" class="headerlink" title="SPM &amp; BRANT"></a>SPM &amp; BRANT</h2><h2 id="AFNI"><a href="#AFNI" class="headerlink" title="AFNI"></a>AFNI</h2><p>A powerful toolbox for neuroimage, but I just use the slice timing correction function.</p>
 <h2 id="ANTs"><a href="#ANTs" class="headerlink" title="ANTs"></a>ANTs</h2><p>The most powerful toolbox for registration.</p>
 <h2 id="connectome-workbench"><a href="#connectome-workbench" class="headerlink" title="connectome workbench"></a>connectome workbench</h2><h3 id="wb-view"><a href="#wb-view" class="headerlink" title="wb_view"></a>wb_view</h3><h3 id="wb-command"><a href="#wb-command" class="headerlink" title="wb_command"></a>wb_command</h3><h2 id="enigma-toolbox"><a href="#enigma-toolbox" class="headerlink" title="enigma toolbox"></a>enigma toolbox</h2>
                 
@@ -507,18 +515,17 @@ img.to_filename(&#39;demo2.nii&#39;)<span aria-hidden="true" class="line-numbers
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2022/09/12/Neuroimage_tutorial_1/">
+                <a href="/2022/09/16/Neuroimage-workbench/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="File types and toolbox in Neuroimage research">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Neuroimage_workbench">
                         
-                        <span class="card-title">File types and toolbox in Neuroimage research</span>
+                        <span class="card-title">Neuroimage_workbench</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -528,33 +535,16 @@ img.to_filename(&#39;demo2.nii&#39;)<span aria-hidden="true" class="line-numbers
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-16
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Neuroimage/" class="post-category">
-                                    Neuroimage
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Pindong Chen
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Neuroimage/">
-                        <span class="chip bg-color">Neuroimage</span>
-                    </a>
-                    
-                    <a href="/tags/tutorial/">
-                        <span class="chip bg-color">tutorial</span>
-                    </a>
-                    
                 </div>
                 
             </div>
